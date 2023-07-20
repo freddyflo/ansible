@@ -1,0 +1,14 @@
+--- 
+- name: create user accounts for all our servers
+  hosts: microk8s
+  become: true
+  remote_user: ubuntu
+  vars_files:
+    - secret.yml
+  
+  tasks:
+    - name: Creating user from secret.yml
+      user:
+        name: "{{ username }}"
+        password: "{{ pw }}"
+

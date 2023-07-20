@@ -1,0 +1,17 @@
+--- 
+- hosts: localhost 
+  remote_user: ubuntu
+  become: true 
+  vars:
+    system_owner: clyde@example.com
+  tasks:
+    - template:
+        src:  motd.j2
+        dest: /Users/aklamanu/Documents/tut/ansible
+        owner: owner 
+        group: owner 
+        mode: 0644 
+    - name: Copy files
+      ansible.builtin.copy:
+        
+

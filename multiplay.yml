@@ -1,0 +1,56 @@
+---
+- name: Enable internet services
+  hosts: microk8s
+  become: yes
+  tasks:
+  - name: latest version of all required packages installed
+    apt: 
+      name:
+        - firewalld
+        - apache2
+        - mariadb-server
+        - php
+        - php-mysql
+      state: absent
+
+#   - name: firewalld enabled and running 
+#     service:
+#       name: firewalld
+#       enabled: true
+#       state: started
+
+#   # - name: firewalld permits apache2 service 
+#   #   firewalld:
+#   #     service: apache2 
+#   #     permanent: true
+#   #     state: enabled
+#   #     immediate: yes
+
+#   - name: apache2 enbaled and running
+#     service:
+#       name: apache2
+#       enabled: true
+#       state: started
+  
+#   - name: mariadb enabled and running
+#     service:
+#       name: mariadb
+#       enabled: true
+#       state: started 
+
+#   # - name: test php is installed
+#   #   get_url:
+#   #     url: "https://materials.exmaple.com/labs/playbook-review/index.php"
+#   #     dest: /var/www/html/index.php
+#   #     mode: 0644
+
+# # second play
+# - name: Test internet web server 
+#   hosts: localhost
+#   become: no
+#   tasks:
+#     - name: connect to internet web server 
+#       uri:
+#         url: microk8s
+#         status_code: 200
+

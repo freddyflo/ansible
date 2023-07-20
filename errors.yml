@@ -1,0 +1,18 @@
+--- 
+- name: Task Failure Exercise 
+  hosts: localhost
+  vars:
+    web_package: http
+    db_package: mariadb-server 
+    db_service: mariadb
+  tasks:
+    - name: Install {{ web_package }} packages
+      apt:
+        name: "{{ web_package }}"
+        state: present
+      ignore_errors: yes 
+
+    - name: Install {{ db_package }} db_packages
+      apt:
+        name: "{{ db_package }}"
+        state: present 

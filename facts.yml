@@ -1,0 +1,7 @@
+--- 
+- name: Fact dump
+  hosts: microk8s
+  tasks:
+    - name: Print all facts
+      debug:
+        var: ansible_facts

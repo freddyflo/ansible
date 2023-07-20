@@ -1,0 +1,14 @@
+--- 
+- name: Demonstrate the "in" keyword
+  hosts: microk8s
+  vars:
+    supported_distros:
+      - Redhat
+      - Fedora
+      - Ubuntu
+  tasks:
+    - name: Install apache2 using yum, where supported
+      apt:
+        name: apache2
+        state: present 
+      when: ansible_distribution in supported_distros

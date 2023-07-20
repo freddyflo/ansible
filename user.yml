@@ -1,0 +1,9 @@
+---
+- name: Configure import user consistently
+  hosts: microk8s
+  tasks:
+    - name: newbie exists with UID 4000
+      user:
+        name: newbie
+        uid: 4000
+        state: present

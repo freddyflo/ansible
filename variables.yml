@@ -1,0 +1,33 @@
+--- 
+- name: Deploy and start Apache HTTPD service
+  hosts: all
+  vars:
+    web_pkg: apache2
+    firewalld_pkg: firewalld
+    python_pkg: python-httplib2
+    web_service: apache2
+    rule: http 
+
+  tasks:
+    - name: Required packages are installed and up to date
+      apt:
+        name: 
+          - "{{ web_pkg  }}"
+          - "{{ firewalld_pkg  }}"
+          - "{{ python_pkg }}"
+        state: latest 
+
+    - name: The {{ web_service  }} service is started and enabled
+      service:
+        name: "{{ web_service }}"
+        enabled: true
+        state: started 
+
+- name: Test internet web server 
+  hosts: localhost
+  become: false
+  tasks:
+    - name: connect to internet web server 
+      uri:
+        url: microk8s
+        status_code: 200

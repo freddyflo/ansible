@@ -1,0 +1,9 @@
+--- 
+- name: Fact dump
+  hosts: microk8s
+  tasks:
+    - name: Print all facts
+      debug:
+        msg: >
+          The default IPv4 address of {{ ansible_facts.fqdn }}
+          is {{ ansible_facts.default_ipv4.address }}

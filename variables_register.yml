@@ -1,0 +1,11 @@
+--- 
+- name: Installs a package and prints the result
+  hosts: microk8s
+  tasks:
+    - name: Install the package 
+      apt:
+        name: apache2
+        state: present
+      register: install_result
+    - debug: var=install_result
+

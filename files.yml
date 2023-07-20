@@ -1,0 +1,52 @@
+---
+- name: Deploying Files on Managed hosts
+  hosts: localhost 
+  tasks:
+    - name: Touch file and set host_permission_groups
+      file:
+        path: /Users/aklamanu/Documents/tut/ansible/touch.txt
+        owner: ubuntu
+        group: ubuntu 
+        mode: 0640
+        state: touch 
+    - name: SELinux type is set to samba_share_t 
+      file:
+        path: /Users/aklamanu/Documents/tut/ansible/samba_file
+        setype: samba_share_t 
+      ignore_errors: yes
+    - name: Copy a file to Managed hosts
+      copy:
+        src: samba_file.txt
+        dest: /Users/aklamanu/Documents/tut/ansible/samba_file2.txt
+    - name: Add a line of text to a file
+      lineinfile:
+        path: /Users/aklamanu/Documents/tut/ansible/samba_file.txt
+        line: 'Add this line to the file'
+        state: present 
+    - name: Add additional lines to a file 
+      blockinfile:
+        path: /Users/aklamanu/Documents/tut/ansible/samba_file.txt
+        block: |
+          First line in the additional block of text
+          Second line in the additional block of text 
+        state: present 
+    - name: Make sure a file does not exist on managed hosts
+      file:
+        dest: /Users/aklamanu/Documents/tut/ansible/samba_file2.txt
+        state: absent 
+      ignore_errors: yes
+    - name: Verify the checksum of a file
+      stat:
+        path: /Users/aklamanu/Documents/tut/ansible/samba_file.txt
+        checksum_algorithm: md5
+      register: result 
+    - debug:
+        msg: "The checksum of the file is {{ result.stat.checksum }}" 
+    - name: stats /etc/passwd
+      stat:
+        path: /etc/passwd
+      register: results 
+    - name: Display stat results 
+      debug:  
+        var: results 
+
