@@ -4,7 +4,7 @@ def is_blue(string):
     blue_values = [
         'blue',
         '#0000ff',
-        '#00f',
+        '#00ff',
         'rgb(0,0,255)',
         'rgb(0%,0%,100%)'
     ]

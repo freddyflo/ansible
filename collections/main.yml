@@ -1,7 +1,7 @@
 ---
 - hosts: localhost 
   vars: 
-    my_color_choice: '#0000ff'
+    my_color_choice: '#00ff'
   tasks:
     - name: "Verify {{ my_color_choice }} is a form of blue"
       assert: 
